@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">SwissTournament2</string>
+
+
+    <string name="cadence">Cadence</string>
+    <string name="freestyle_tournament">FreeStyle Tournament</string>
+    <string name="nom_tournois">Nom Tournois</string>
+    <string name="nvx_tournois">CREER TOURNOIS</string>
+    <string name="enregistrer_joueur">Enregistrer joueur</string>
+    <string name="creerjoueur">+</string>
+    <string-array name="spinner_tournois">
+        <item></item>
+        <item>3 | 2</item>
+        <item>5 | 0</item>
+        <item>5 | 3</item>
+        <item>10| 0</item>
+        <item>10| 5</item>
+    </string-array>
+</resources>

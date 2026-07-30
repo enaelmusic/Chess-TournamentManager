@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/cree_nvx_tournois"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:gravity="center"
+android:padding="16dp"
+tools:context=".CreerNouveauxTournois">
+
+<TextView
+    android:id="@+id/label1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_centerInParent="true"
+    android:layout_marginBottom="70dp"
+    android:elegantTextHeight="true"
+    android:fontFamily="sans-serif-medium"
+    android:padding="16dp"
+    android:text="@string/freestyle_tournament"
+    android:textAppearance="@color/design_default_color_primary"
+    android:textSize="32sp" />
+
+<EditText
+    android:id="@+id/nomTournoisInput"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/label1"
+    android:autofillHints="@string/nom_tournois"
+    android:elegantTextHeight="true"
+    android:hint="@string/nom_tournois"
+    android:inputType="text"
+    android:padding="16dp" />
+
+<TextView
+    android:id="@+id/label3"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/nomTournoisInput"
+    android:layout_alignStart="@+id/nomTournoisInput"
+    android:layout_marginEnd="30dp"
+    android:text="@string/cadence"
+    android:textSize="20sp" />
+
+<Spinner
+    android:id="@+id/cadenceInput"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/nomTournoisInput"
+    android:layout_alignTop="@+id/label3"
+    android:layout_alignBottom="@+id/label3"
+    android:layout_centerHorizontal="true"
+    android:layout_toEndOf="@id/label3"
+    android:background="#0A000000"
+    android:elegantTextHeight="true"
+    android:entries="@array/spinner_tournois"
+    android:padding="16dp" />
+
+<RelativeLayout
+    android:id="@+id/LayoutPlayer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/cadenceInput"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="64dp">
+
+    <RelativeLayout
+        android:id="@+id/addPlayerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/label4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="8dp"
+            android:autofillHints="@string/enregistrer_joueur"
+            android:paddingStart="8dp"
+            android:paddingEnd="86dp"
+            android:hint="@string/enregistrer_joueur"
+            android:inputType="text"/>
+
+        <Button
+            android:id="@+id/addPlayerBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/label4"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="16dp"
+            android:layout_toEndOf="@id/label4"
+            android:text="@string/creerjoueur" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/simpleTableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#172A6CDF"
+        android:layout_below="@+id/addPlayerLayout"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/PlayerList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true">
+
+    <Button
+        android:id="@+id/startTournoisBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/nvx_tournois" />
+</RelativeLayout>
+
+</RelativeLayout>
