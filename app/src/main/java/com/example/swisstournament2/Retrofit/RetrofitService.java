@@ -10,7 +10,7 @@ public class RetrofitService {
     }
 
     /**
-     * FOR PARAM BuildConfig.BASE_URL see app/serc/build.gradle.kts comment BASE URL
+     * FOR PARAM BuildConfig.BASE_URL see app/src/build.gradle.kts comment BASE URL
      */
     public static Retrofit getRetrofit() {
         if(retrofit==null){

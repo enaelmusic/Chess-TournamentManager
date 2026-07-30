@@ -28,7 +28,13 @@ android {
         if(localPropertiesFile.exists())
             localPropertiesFile.inputStream().use{ localProperties.load(it)}
         val baseURL = localProperties.getProperty("api.base.url")
-        buildConfigField("String","BASE_URL","\"${baseURL ?: "your_http_adresse/" }\"")
+        /**
+         * if BuildConfig Object is not reconize, clean project, build, rebuild.
+         * Cclass can be automticly generated from here , this add a new package(Java) and a class(BuildConfig.java) with attributes.
+         * depend if you are in production or developement mode, be carefull for use-permission clearText if link is a http or https.
+         * the variable api.base.url can be declared in rootProject/local.properties
+         */
+        buildConfigField("String","BASE_URL","\"${baseURL ?: "your_https_adresse/" }\"")
     }
 
     buildTypes {
