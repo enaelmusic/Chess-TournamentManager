@@ -62,5 +62,6 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
     // Source: https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-gson
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")
-    implementation("androidx.recyclerview:recyclerview:1.1.0")
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
+    implementation("androidx.compose.foundation:foundation:1.11.4")
 }

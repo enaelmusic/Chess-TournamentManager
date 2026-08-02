@@ -33,7 +33,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> {
     public void onBindViewHolder(@NonNull PlayerHolder holder, int position) {
         PlayerSwiss player= mapPlayer.get(position);
         holder.getNamePlayer().setText(player.getNom());
-        holder.getRatingPlayer().setText(player.getRapidRatting());
+        holder.getRatingPlayer().setText(player.getRatingBlitz());
     }
 
     @Override

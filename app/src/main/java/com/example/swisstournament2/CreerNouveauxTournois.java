@@ -132,13 +132,14 @@ public class CreerNouveauxTournois extends AppCompatActivity {
         if (response.isSuccessful() && response.body() != null) {
             playerHandler = response.body();
             Log.i("JOUEURSAUVER->", "player id =" + playerHandler.getId());
-            PlayerTournois playerTournoisRequest = new PlayerTournois(idTournois, playerHandler.getId());
+            PlayerTournois playerTournoisRequest = new PlayerTournois();
+            playerTournoisRequest.setIdPlayer(playerHandler.getId());
+            playerTournoisRequest.setIdTournois(idTournois);
             tournoisApi.postJoueurTournois(playerTournoisRequest)
                     .enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call2, Response<Void> response2) {
                             buildLoadJoueur(response2);
-
                         }
 
                         @Override

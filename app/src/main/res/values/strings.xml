@@ -8,7 +8,16 @@
     <string name="nvx_tournois">CREER TOURNOIS</string>
     <string name="enregistrer_joueur">Enregistrer joueur</string>
     <string name="creerjoueur">+</string>
-    <string-array name="spinner_tournois">
+    <string name="creer_nvx_tournois">Creer NVX Tournois</string>
+    <string name="manches">Manches</string>
+    <string name="_2">2</string>
+    <string name="tournoisEnCours">Tournois En Cours</string>
+    <string name="tournoisTerminer">Tournois Terminer</string>
+    <string name="classementGeneral">Classement General</string>
+    <string name="manche_suivante">MANCHE SUIVANTE</string>
+    <string name="tournois_num">TOURNOIS NUM</string>
+    <string name="home">HOME</string>
+    <string-array name="spinner_tournois_cadence">
         <item></item>
         <item>3 | 2</item>
         <item>5 | 0</item>

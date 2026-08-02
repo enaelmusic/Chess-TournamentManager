@@ -1,15 +1,63 @@
 package com.example.swisstournament2.Model;
 
+
+
 import java.util.Objects;
 
+
 public class PlayerSwiss implements Comparable<PlayerSwiss> {
+
     private int id;
-    private String nom,blitzRating,bulletRating,rapidRatting,stdRating;
-    private int numFide;
+    private String nom;
+    private int num_fide;
 
+    private String num_joueur;
+    private int ratingBullet;
+    private int ratingBlitz;
+    private int ratingRapid;
+    private int ratingStd;
 
-    public int getId() {
-        return id;
+    public void setNum_joueur(String num_joueur) {
+        this.num_joueur = num_joueur;
+    }
+    public String getNum_joueur() {
+        return this.num_joueur;
+    }
+
+    public int getRatingStd() {
+        return ratingStd;
+    }
+
+    public void setRatingStd(int ratingStd) {
+        this.ratingStd = ratingStd;
+    }
+
+    public int getRatingRapid() {
+        return ratingRapid;
+    }
+
+    public void setRatingRapid(int ratingRapid) {
+        this.ratingRapid = ratingRapid;
+    }
+
+    public int getRatingBlitz() {
+        return ratingBlitz;
+    }
+
+    public void setRatingBlitz(int ratingBlitz) {
+        this.ratingBlitz = ratingBlitz;
+    }
+
+    public int getRatingBullet() {
+        return ratingBullet;
+    }
+
+    public void setRatingBullet(int ratingBullet) {
+        this.ratingBullet = ratingBullet;
+    }
+
+    public int getNumFide() {
+        return num_fide;
     }
 
     public String getNom() {
@@ -20,40 +68,8 @@ public class PlayerSwiss implements Comparable<PlayerSwiss> {
         this.nom = nom;
     }
 
-    public String getBlitzRating() {
-        return blitzRating;
-    }
-
-    public void setBlitzRating(String blitzRating) {
-        this.blitzRating = blitzRating;
-    }
-
-    public String getBulletRating() {
-        return bulletRating;
-    }
-
-    public void setBulletRating(String bulletRating) {
-        this.bulletRating = bulletRating;
-    }
-
-    public String getRapidRatting() {
-        return rapidRatting;
-    }
-
-    public void setRapidRatting(String rapidRatting) {
-        this.rapidRatting = rapidRatting;
-    }
-
-    public String getStdRating() {
-        return stdRating;
-    }
-
-    public void setStdRating(String stdRating) {
-        this.stdRating = stdRating;
-    }
-
-    public int getNumFide() {
-        return numFide;
+    public int getId() {
+        return id;
     }
 
     @Override
