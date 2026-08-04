@@ -1,6 +1,8 @@
 package com.example.swisstournament2.Model;
 
-public class MatchSwiss implements Comparable<MatchSwiss> {
+import java.io.Serializable;
+
+public class MatchSwiss implements Comparable<MatchSwiss>, Serializable {
 
     private int id;
 

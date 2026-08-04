@@ -1,5 +1,6 @@
 package com.example.swisstournament2.Retrofit;
 
+import com.example.swisstournament2.Model.MatchSwiss;
 import com.example.swisstournament2.Model.PlayerSwiss;
 import com.example.swisstournament2.Model.PlayerTournois;
 import com.example.swisstournament2.Model.Tournois;
@@ -23,4 +24,6 @@ public interface TournoisApi {
 
     @POST("/sauverJoueurTournois")
     Call<Void> postJoueurTournois(@Body PlayerTournois playerTournois);
+    @POST("/starttournois")
+    Call<TreeSet<MatchSwiss>> startTournois(@Body Tournois tournois);
 }

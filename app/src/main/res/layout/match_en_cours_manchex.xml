@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         android:paddingEnd="5dp"
-        android:text="<- Manches"
+        android:text="@string/retour_manches"
         app:layout_constraintTop_toTopOf="@+id/MancheNumero"
         app:layout_constraintBottom_toBottomOf="@+id/MancheNumero">
 

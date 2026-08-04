@@ -32,7 +32,24 @@
             android:exported="true"
             android:windowSoftInputMode="adjustResize"
             android:parentActivityName=".MainActivity">
-
+        </activity>
+        <activity
+            android:name=".ManchesTournois"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".MainActivity">
+        </activity>
+        <activity
+            android:name=".MatchEncourMancheX"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".ManchesTournois">
+        </activity>
+        <activity
+            android:name=".ClassementActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
 

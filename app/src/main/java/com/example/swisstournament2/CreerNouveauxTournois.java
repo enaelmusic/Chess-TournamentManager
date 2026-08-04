@@ -1,5 +1,6 @@
 package com.example.swisstournament2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.swisstournament2.Model.MatchSwiss;
 import com.example.swisstournament2.Model.PlayerSwiss;
 import com.example.swisstournament2.Model.PlayerTournois;
 import com.example.swisstournament2.Model.Tournois;
@@ -22,6 +24,7 @@ import com.example.swisstournament2.Retrofit.RetrofitService;
 import com.example.swisstournament2.Retrofit.TournoisApi;
 import com.example.swisstournament2.adapter.PlayerAdapter;
 
+import java.util.ArrayList;
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,11 +75,12 @@ public class CreerNouveauxTournois extends AppCompatActivity {
         EditText name = findViewById(R.id.nomTournoisInput);
         Spinner cadenceSpinner = findViewById(R.id.cadenceInput);
         Button startTournois = findViewById(R.id.startTournoisBtn);
+        EditText nbrManche = findViewById(R.id.inputNbrManche);
         EditText playerName = findViewById(R.id.label4);
         Button ajouterJoueur = findViewById(R.id.addPlayerBtn);
         recycleView = findViewById(R.id.PlayerList);
 
-        String[] cadences = getResources().getStringArray(R.array.spinner_tournois);
+        String[] cadences = getResources().getStringArray(R.array.spinner_tournois_cadence);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, cadences);
         cadenceSpinner.setAdapter(arrayAdapter);
         recycleView.setLayoutManager(new LinearLayoutManager(this));
@@ -110,11 +114,28 @@ public class CreerNouveauxTournois extends AppCompatActivity {
                 nvxTournois.setName(nameString);
                 nvxTournois.setCadence(cadenceString);
                 nvxTournois.setStatusTournois(1);
+                nvxTournois.setNbr_manche(Integer.parseInt(nbrManche.getText().toString()));
                 tournoisApi.postTournois(nvxTournois)
                         .enqueue(new Callback<Tournois>() {
                             @Override
                             public void onResponse(Call<Tournois> call, Response<Tournois> response) {
-                                Toast.makeText(CreerNouveauxTournois.this, "Tournois Creer", Toast.LENGTH_SHORT).show();
+                                Tournois tournoisCreer= response.body();
+                                tournoisApi.startTournois(tournoisCreer)
+                                        .enqueue(new Callback<TreeSet<MatchSwiss>>() {
+                                            @Override
+                                            public void onResponse(Call<TreeSet<MatchSwiss>> call, Response<TreeSet<MatchSwiss>> response) {
+                                                Intent intent = new Intent(CreerNouveauxTournois.this, MatchEncourMancheX.class);
+                                                intent.putExtra("MatchList:", new ArrayList<>(response.body()));
+                                                intent.putExtra("IDTOURNOIS:",tournoisCreer.getId());
+                                                startActivity(intent);
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<TreeSet<MatchSwiss>> call, Throwable t) {
+
+                                            }
+                                        });
+                                ;
                             }
 
                             @Override
