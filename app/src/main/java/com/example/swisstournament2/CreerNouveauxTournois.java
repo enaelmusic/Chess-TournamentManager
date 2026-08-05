@@ -36,7 +36,7 @@ import retrofit2.Retrofit;
 
 public class CreerNouveauxTournois extends AppCompatActivity {
     private RecyclerView recycleView;
-
+    private Logger log = Logger.getLogger("CREATION TOURNOIS");
     private Retrofit retrofit = RetrofitService.getRetrofit();
     private TournoisApi tournoisApi = retrofit.create(TournoisApi.class);
     private PlayerApi playerApi = retrofit.create(PlayerApi.class);
@@ -125,8 +125,12 @@ public class CreerNouveauxTournois extends AppCompatActivity {
                                             @Override
                                             public void onResponse(Call<TreeSet<MatchSwiss>> call, Response<TreeSet<MatchSwiss>> response) {
                                                 Intent intent = new Intent(CreerNouveauxTournois.this, MatchEncourMancheX.class);
-                                                intent.putExtra("MatchList:", new ArrayList<>(response.body()));
-                                                intent.putExtra("IDTOURNOIS:",tournoisCreer.getId());
+
+                                                Log.i("Response RECU->", "body =" + response.body().toString());
+                                                ArrayList<MatchSwiss> matchList = new ArrayList<>(response.body());
+                                                Log.i("First Array RECU->", "First =" + matchList.get(0).getNom_black());
+                                                intent.putExtra("MatchList",matchList);
+                                                intent.putExtra("IDTOURNOIS",tournoisCreer.getId());
                                                 startActivity(intent);
                                             }
 

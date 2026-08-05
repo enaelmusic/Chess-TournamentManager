@@ -1,5 +1,6 @@
 package com.example.swisstournament2.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,10 @@ import java.util.List;
 import java.util.TreeSet;
 
 public class MatchSwissAdapter extends RecyclerView.Adapter<MatchSwissHolder> {
-    private final List<MatchSwiss> matchSet;
+    private final ArrayList<MatchSwiss> matchSet;
 
     public MatchSwissAdapter(ArrayList<MatchSwiss> matchSet) {
+        Log.d("on construi le match adapter ->",matchSet.get(0).getNom_black());
         this.matchSet= matchSet;
     }
     @NonNull

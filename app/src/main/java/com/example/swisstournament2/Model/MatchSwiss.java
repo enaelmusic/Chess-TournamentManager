@@ -80,14 +80,4 @@ public class MatchSwiss implements Comparable<MatchSwiss>, Serializable {
     public int compareTo(MatchSwiss o) {
         return this.num_match.compareTo(o.getNum_match());
     }
-
-    public void buildMatch(String num_manche, int idPlayerW, String nom_white, int idPlayerB, String nom_black, String num_match, int numTable) {
-        this.num_manche=num_manche;
-        this.idPlayerW=idPlayerW;
-        this.nom_white=nom_white;
-        this.idPlayerB=idPlayerB;
-        this.nom_black=nom_black;
-        this.tableNum=numTable;
-        setNum_match(num_match);
-    }
 }
