@@ -18,6 +18,7 @@
     <string name="tournois_num">TOURNOIS NUM</string>
     <string name="home">HOME</string>
     <string name="retour_manches">retour Manches</string>
+    <string name="_1_x">1/x</string>
     <string-array name="spinner_tournois_cadence">
         <item></item>
         <item>3 | 2</item>

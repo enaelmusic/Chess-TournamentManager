@@ -8,6 +8,7 @@ public class MancheSwiss implements Comparable<MancheSwiss> {
     private String num_tournois;
     private String num_manche;
     private int status;
+    private int int_manche;
 
     public int getId(){
         return id;
@@ -34,6 +35,14 @@ public class MancheSwiss implements Comparable<MancheSwiss> {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getInt_manche() {
+        return int_manche;
+    }
+
+    public void setInt_manche(int int_manche) {
+        this.int_manche = int_manche;
     }
 
     @Override
