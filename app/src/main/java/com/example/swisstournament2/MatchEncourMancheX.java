@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.swisstournament2.Model.MatchSwiss;
+import com.example.swisstournament2.Retrofit.ClassementApi;
 import com.example.swisstournament2.Retrofit.ManchesApi;
 import com.example.swisstournament2.Retrofit.RetrofitService;
 import com.example.swisstournament2.Retrofit.TournoisApi;
@@ -66,6 +67,9 @@ public class MatchEncourMancheX extends AppCompatActivity {
     private void initialiserVue() {
         Button nextManche = findViewById(R.id.NextRoundBTN);
         TextView numManche = findViewById(R.id.numManche);
+        String numMancheString = getIntent().getExtras().getString("numManche");
+        String numMaxString = getIntent().getExtras().getString("mancheMax");
+        numManche.setText(numMancheString+"/"+numMaxString);
         nextManche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +80,9 @@ public class MatchEncourMancheX extends AppCompatActivity {
                                 if(response.isSuccessful()){
                                     if(response.code()==204){
                                         // classement final
+                                        Intent intent2 = new Intent(MatchEncourMancheX.this, ClassementActivity.class);
+                                        intent2.putExtra("IDTOURNOIS",getIntent().getExtras().getInt("IDTOURNOIS"));
+                                        startActivity(intent2);
                                     }
                                     else {
                                        // matchAdapter.updateMatches(response.body());

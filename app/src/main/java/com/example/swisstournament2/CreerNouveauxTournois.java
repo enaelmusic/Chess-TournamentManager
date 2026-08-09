@@ -131,6 +131,8 @@ public class CreerNouveauxTournois extends AppCompatActivity {
                                                 Log.i("First Array RECU->", "First =" + matchList.get(0).getNom_black());
                                                 intent.putExtra("MatchList",matchList);
                                                 intent.putExtra("IDTOURNOIS",tournoisCreer.getId());
+                                                intent.putExtra("numManche",response.headers().get("numManche"));
+                                                intent.putExtra("mancheMax",response.headers().get("mancheMax"));
                                                 startActivity(intent);
                                             }
 
