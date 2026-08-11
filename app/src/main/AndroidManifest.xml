@@ -19,7 +19,7 @@
          android:usesCleartextTraffic="true" doit etre retirer en production, retrofit.java devra etre revu
          -->
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -28,28 +28,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CreerNouveauxTournois"
+            android:name=".Activity.CreerNouveauxTournois"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".Activity.MainActivity">
         </activity>
         <activity
-            android:name=".ManchesTournois"
+            android:name=".Activity.ManchesTournois"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".Activity.MainActivity">
         </activity>
         <activity
-            android:name=".MatchEncourMancheX"
+            android:name=".Activity.MatchEncourMancheX"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"
-            android:parentActivityName=".ManchesTournois">
+            android:parentActivityName=".Activity.ManchesTournois">
         </activity>
         <activity
-            android:name=".ClassementActivity"
+            android:name=".Activity.ClassementActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".Activity.MainActivity">
         </activity>
     </application>
 

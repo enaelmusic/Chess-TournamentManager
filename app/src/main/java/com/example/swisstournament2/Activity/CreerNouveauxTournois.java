@@ -1,4 +1,4 @@
-package com.example.swisstournament2;
+package com.example.swisstournament2.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,9 +19,10 @@ import com.example.swisstournament2.Model.MatchSwiss;
 import com.example.swisstournament2.Model.PlayerSwiss;
 import com.example.swisstournament2.Model.PlayerTournois;
 import com.example.swisstournament2.Model.Tournois;
-import com.example.swisstournament2.Retrofit.PlayerApi;
+import com.example.swisstournament2.R;
+import com.example.swisstournament2.Retrofit.Apis.PlayerApi;
 import com.example.swisstournament2.Retrofit.RetrofitService;
-import com.example.swisstournament2.Retrofit.TournoisApi;
+import com.example.swisstournament2.Retrofit.Apis.TournoisApi;
 import com.example.swisstournament2.adapter.PlayerAdapter;
 
 import java.util.ArrayList;

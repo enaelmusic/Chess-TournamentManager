@@ -8,7 +8,7 @@
     android:id="@+id/match_en_cour"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".MatchEncourMancheX">
+    tools:context=".Activity.MatchEncourMancheX">
     <LinearLayout
         android:id="@+id/headerPerso"
         android:layout_width="match_parent"

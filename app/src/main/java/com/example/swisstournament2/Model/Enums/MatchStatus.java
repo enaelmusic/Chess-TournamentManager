@@ -1,4 +1,4 @@
-package com.example.swisstournament2;
+package com.example.swisstournament2.Model.Enums;
 
 public enum MatchStatus {
     ENATTENT(0),

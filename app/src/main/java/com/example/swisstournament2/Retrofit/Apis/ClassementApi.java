@@ -1,7 +1,6 @@
-package com.example.swisstournament2.Retrofit;
+package com.example.swisstournament2.Retrofit.Apis;
 
 import com.example.swisstournament2.Model.ClassementDTO;
-import com.example.swisstournament2.Model.ClassementTournois;
 
 import java.util.ArrayList;
 

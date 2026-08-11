@@ -9,16 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.swisstournament2.Model.ClassementDTO;
-import com.example.swisstournament2.Model.ClassementTournois;
 import com.example.swisstournament2.R;
-import com.example.swisstournament2.Retrofit.PlayerApi;
+import com.example.swisstournament2.Retrofit.Apis.PlayerApi;
 import com.example.swisstournament2.Retrofit.RetrofitService;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class ClassementAdapter extends RecyclerView.Adapter<ClassementHolder> {

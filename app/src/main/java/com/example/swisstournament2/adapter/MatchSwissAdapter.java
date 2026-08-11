@@ -9,12 +9,11 @@ import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.swisstournament2.MatchStatus;
+import com.example.swisstournament2.Model.Enums.MatchStatus;
 import com.example.swisstournament2.Model.MatchSwiss;
 import com.example.swisstournament2.R;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.TreeSet;
 
 public class MatchSwissAdapter extends RecyclerView.Adapter<MatchSwissHolder> {

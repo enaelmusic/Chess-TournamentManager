@@ -1,20 +1,18 @@
-package com.example.swisstournament2;
+package com.example.swisstournament2.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.swisstournament2.Model.ClassementDTO;
-import com.example.swisstournament2.Model.ClassementTournois;
-import com.example.swisstournament2.Retrofit.ClassementApi;
+import com.example.swisstournament2.R;
+import com.example.swisstournament2.Retrofit.Apis.ClassementApi;
 import com.example.swisstournament2.Retrofit.RetrofitService;
 import com.example.swisstournament2.adapter.ClassementAdapter;
 

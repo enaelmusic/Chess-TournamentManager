@@ -1,4 +1,4 @@
-package com.example.swisstournament2.Retrofit;
+package com.example.swisstournament2.Retrofit.Apis;
 
 import com.example.swisstournament2.Model.MatchSwiss;
 import com.example.swisstournament2.Model.PlayerSwiss;
