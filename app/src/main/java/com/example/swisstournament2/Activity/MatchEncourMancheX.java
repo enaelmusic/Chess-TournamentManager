@@ -6,7 +6,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.window.OnBackInvokedDispatcher;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +37,13 @@ public class MatchEncourMancheX extends AppCompatActivity {
 
 
     ArrayList<MatchSwiss> matchArray ;
+
+    @NonNull
+    @Override
+    public OnBackInvokedDispatcher getOnBackInvokedDispatcher() {
+        return super.getOnBackInvokedDispatcher();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +53,15 @@ public class MatchEncourMancheX extends AppCompatActivity {
         initRecycleView();
         loadMatches(matchSwisses);
         initialiserVue();
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent intent = new Intent(MatchEncourMancheX.this,ManchesTournois.class);
+                intent.putExtra("IDTOURNOIS", getIntent().getExtras().getInt("IDTOURNOIS"));
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void initRecycleView() {

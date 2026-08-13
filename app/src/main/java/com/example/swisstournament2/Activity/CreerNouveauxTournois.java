@@ -135,6 +135,7 @@ public class CreerNouveauxTournois extends AppCompatActivity {
                                                 intent.putExtra("numManche",response.headers().get("numManche"));
                                                 intent.putExtra("mancheMax",response.headers().get("mancheMax"));
                                                 startActivity(intent);
+                                                finish();
                                             }
 
                                             @Override
