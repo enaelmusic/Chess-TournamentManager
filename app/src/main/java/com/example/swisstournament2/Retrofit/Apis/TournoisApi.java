@@ -1,10 +1,12 @@
 package com.example.swisstournament2.Retrofit.Apis;
 
+import com.example.swisstournament2.Model.MancheSwiss;
 import com.example.swisstournament2.Model.MatchSwiss;
 import com.example.swisstournament2.Model.PlayerSwiss;
 import com.example.swisstournament2.Model.PlayerTournois;
 import com.example.swisstournament2.Model.Tournois;
 
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 import retrofit2.Call;
@@ -26,4 +28,7 @@ public interface TournoisApi {
     Call<Void> postJoueurTournois(@Body PlayerTournois playerTournois);
     @POST("/starttournois")
     Call<TreeSet<MatchSwiss>> startTournois(@Body Tournois tournois);
+
+    @GET("/getManchesTournois/{idTournois}")
+    Call<ArrayList<MancheSwiss>> getMancheTournois(@Path("idTournois") int idTournois);
 }
