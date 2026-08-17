@@ -18,8 +18,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/manchename"
-        android:clickable="true"
-        android:focusable="true">
+        android:clickable="false"
+        android:focusable="false">
     </TextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

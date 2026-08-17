@@ -31,4 +31,7 @@ public interface TournoisApi {
 
     @GET("/getManchesTournois/{idTournois}")
     Call<ArrayList<MancheSwiss>> getMancheTournois(@Path("idTournois") int idTournois);
+
+    @GET("/getMatchByManche/{num_manche}")
+    Call<TreeSet<MatchSwiss>> getMatchByManche(@Path("num_manche") String num_manche);
 }

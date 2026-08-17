@@ -18,16 +18,15 @@ import com.example.swisstournament2.Retrofit.Apis.TournoisApi;
 import com.example.swisstournament2.Retrofit.RetrofitService;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 import retrofit2.Retrofit;
 
 public class MancheAdapter extends RecyclerView.Adapter<MancheHolder> {
     private final ArrayList<MancheSwiss> mancheTournois;
-    private final AdapterView.OnItemClickListener listener;
 
-    public MancheAdapter(ArrayList<MancheSwiss> mancheTournois, AdapterView.OnItemClickListener listener) {
+    public MancheAdapter(ArrayList<MancheSwiss> mancheTournois) {
         this.mancheTournois = mancheTournois;
-        this.listener = listener;
     }
 
     @NonNull
@@ -50,7 +49,7 @@ public class MancheAdapter extends RecyclerView.Adapter<MancheHolder> {
                 if(mancheSwiss.getStatus()==1 || mancheSwiss.getStatus()==2){
                     Context context = v.getContext();
                     Intent intent= new Intent(context, MatchEncourMancheX.class);
-                    intent.putExtra("numManche",mancheSwiss.getNum_manche());
+                    intent.putExtra("numMancheUnique",mancheSwiss.getNum_manche());
                     context.startActivity(intent);
                 }
                 else{
@@ -58,7 +57,6 @@ public class MancheAdapter extends RecyclerView.Adapter<MancheHolder> {
                 }
             }
         });
-
     }
 
     @Override

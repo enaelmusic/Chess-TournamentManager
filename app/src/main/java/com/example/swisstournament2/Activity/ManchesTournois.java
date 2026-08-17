@@ -76,12 +76,7 @@ public class ManchesTournois extends Activity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
     private void loadManche(ArrayList<MancheSwiss> mancheSwisses){
-        mancheAdapter = new MancheAdapter(mancheSwisses, new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
+        mancheAdapter = new MancheAdapter(mancheSwisses);
         recyclerView.setAdapter(mancheAdapter);
     }
 }

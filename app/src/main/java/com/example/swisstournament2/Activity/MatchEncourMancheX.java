@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.swisstournament2.Model.MatchSwiss;
 import com.example.swisstournament2.R;
 import com.example.swisstournament2.Retrofit.Apis.ManchesApi;
+import com.example.swisstournament2.Retrofit.Apis.TournoisApi;
 import com.example.swisstournament2.Retrofit.RetrofitService;
 import com.example.swisstournament2.adapter.MatchSwissAdapter;
 
@@ -33,6 +34,7 @@ public class MatchEncourMancheX extends AppCompatActivity {
     private Retrofit retrofit =  RetrofitService.getRetrofit();
     private ManchesApi manchesApi= retrofit.create(ManchesApi.class);
     private MatchSwissAdapter matchAdapter;
+    private TournoisApi tournoisApi = retrofit.create(TournoisApi.class);
     private ArrayList<MatchSwiss> matchSwisses;
 
 
@@ -48,11 +50,35 @@ public class MatchEncourMancheX extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.match_en_cours_manchex);
-        matchSwisses= (ArrayList<MatchSwiss>) getIntent().getSerializableExtra("MatchList");
-        Log.d("Match pour MATCH ->",matchSwisses.get(0).getNom_black());
         initRecycleView();
-        loadMatches(matchSwisses);
         initialiserVue();
+        if(getIntent().hasExtra("MatchList")){
+            matchSwisses= (ArrayList<MatchSwiss>) getIntent().getSerializableExtra("MatchList");
+            Log.d("Match pour MATCH ->",matchSwisses.get(0).getNom_black());
+            loadMatches(matchSwisses);
+        }
+        else{
+            tournoisApi.getMatchByManche(getIntent().getExtras().getString("numMancheUnique")).
+                    enqueue(new Callback<TreeSet<MatchSwiss>>() {
+                        @Override
+                        public void onResponse(Call<TreeSet<MatchSwiss>> call, Response<TreeSet<MatchSwiss>> response) {
+                            if(response.body() != null){
+                                getIntent().putExtra("IDTOURNOIS", response.headers().get("IDTOURNOIS"));
+                                getIntent().putExtra("numManche", response.headers().get("numManche"));
+                                getIntent().putExtra("mancheMax", response.headers().get("mancheMax"));
+                                loadMatchesSet(response.body());
+                            }
+                            else{
+                                Log.d("nullBody","le body est null");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<TreeSet<MatchSwiss>> call, Throwable t) {
+                            Log.d("Erreur chargement match","la recuperation des match a echouer");
+                        }
+                    });
+        }
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -111,6 +137,11 @@ public class MatchEncourMancheX extends AppCompatActivity {
     }
 
     private void loadMatches(ArrayList<MatchSwiss> matchSet) {
+        matchAdapter = new MatchSwissAdapter(matchSet);
+        recyclerView.setAdapter(matchAdapter);
+    }
+
+    private void loadMatchesSet(TreeSet<MatchSwiss> matchSet) {
         matchAdapter = new MatchSwissAdapter(matchSet);
         recyclerView.setAdapter(matchAdapter);
     }

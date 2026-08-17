@@ -22,6 +22,10 @@ public class MatchSwissAdapter extends RecyclerView.Adapter<MatchSwissHolder> {
         Log.d("on construi le match adapter ->",matchSet.get(0).getNom_black());
         this.matchSet= matchSet;
     }
+    public MatchSwissAdapter(TreeSet<MatchSwiss> matchSet) {
+        Log.d("on construi le match adapter ->",matchSet.toString());
+        this.matchSet= new ArrayList<MatchSwiss>(matchSet);
+    }
     @NonNull
     @Override
     public MatchSwissHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
