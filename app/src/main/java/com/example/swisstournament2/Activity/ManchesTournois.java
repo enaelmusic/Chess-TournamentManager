@@ -30,12 +30,13 @@ public class ManchesTournois extends Activity {
     private TournoisApi tournoisApi= retrofit.create(TournoisApi.class);
     private MancheAdapter mancheAdapter;
     private RecyclerView recyclerView ;
+    private String idTournois ;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manche_tournois);
         initializeView();
-        int idTournois = getIntent().getExtras().getInt("IDTOURNOIS");
+        idTournois = getIntent().getExtras().getString("IDTOURNOIS");
         initRecycleView();
         tournoisApi.getMancheTournois(idTournois)
                 .enqueue(new Callback<ArrayList<MancheSwiss>>() {
@@ -64,6 +65,7 @@ public class ManchesTournois extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ManchesTournois.this,MainActivity.class);
+                intent.putExtra("IDTOURNOIS",idTournois);
                 startActivity(intent);
             }
         });

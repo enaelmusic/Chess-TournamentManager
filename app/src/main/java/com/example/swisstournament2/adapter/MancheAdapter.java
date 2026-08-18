@@ -41,6 +41,7 @@ public class MancheAdapter extends RecyclerView.Adapter<MancheHolder> {
     public void onBindViewHolder(@NonNull MancheHolder holder, int position) {
         MancheSwiss mancheSwiss = mancheTournois.get(position);
         String mancheName = "MANCHE "+mancheSwiss.getInt_manche();
+        int mancheIntNum = mancheSwiss.getInt_manche();
         holder.getMancheNam().setText(mancheName);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +51,7 @@ public class MancheAdapter extends RecyclerView.Adapter<MancheHolder> {
                     Context context = v.getContext();
                     Intent intent= new Intent(context, MatchEncourMancheX.class);
                     intent.putExtra("numMancheUnique",mancheSwiss.getNum_manche());
+                    intent.putExtra("numManche",mancheIntNum);
                     context.startActivity(intent);
                 }
                 else{

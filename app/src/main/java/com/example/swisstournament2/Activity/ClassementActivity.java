@@ -41,8 +41,8 @@ public class ClassementActivity extends AppCompatActivity {
     private void initClassementView() {
         Button homBtn = findViewById(R.id.homeBtn);
 
-        int id = getIntent().getExtras().getInt("IDTOURNOIS");
-        Log.i("id tournois {}", id+"");
+        String id = getIntent().getExtras().getString("IDTOURNOIS");
+        Log.i("id tournois {}", id);
         classementApi.getClassementTournois(id)
                 .enqueue(new Callback<ArrayList<ClassementDTO>>() {
                     @Override

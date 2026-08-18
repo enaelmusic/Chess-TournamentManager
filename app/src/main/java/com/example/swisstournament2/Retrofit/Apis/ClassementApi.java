@@ -11,5 +11,5 @@ import retrofit2.http.Path;
 public interface ClassementApi {
 
     @GET("/getClassementTournois/{id}")
-    Call<ArrayList<ClassementDTO>> getClassementTournois(@Path("id") int id);
+    Call<ArrayList<ClassementDTO>> getClassementTournois(@Path("id") String id);
 }

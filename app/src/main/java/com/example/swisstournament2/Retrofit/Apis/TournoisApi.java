@@ -30,7 +30,7 @@ public interface TournoisApi {
     Call<TreeSet<MatchSwiss>> startTournois(@Body Tournois tournois);
 
     @GET("/getManchesTournois/{idTournois}")
-    Call<ArrayList<MancheSwiss>> getMancheTournois(@Path("idTournois") int idTournois);
+    Call<ArrayList<MancheSwiss>> getMancheTournois(@Path("idTournois") String idTournois);
 
     @GET("/getMatchByManche/{num_manche}")
     Call<TreeSet<MatchSwiss>> getMatchByManche(@Path("num_manche") String num_manche);
