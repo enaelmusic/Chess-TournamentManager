@@ -47,6 +47,19 @@
             </androidx.recyclerview.widget.RecyclerView>
         </FrameLayout>
     </LinearLayout>
+    <TextView
+        android:id="@+id/errueurManche"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elegantTextHeight="true"
+        android:gravity="center"
+        android:text="@string/la_manche_precedente_n_est_pas_terminer"
+        app:layout_constraintTop_toBottomOf="@+id/LayoutMancheTournois"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/design_default_color_error"
+        android:visibility="invisible">
+    </TextView>
 
     <Button
         android:id="@+id/HomeButton"

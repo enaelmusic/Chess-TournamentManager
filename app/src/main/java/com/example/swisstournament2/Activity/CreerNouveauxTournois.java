@@ -17,12 +17,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.swisstournament2.Model.MatchSwiss;
 import com.example.swisstournament2.Model.PlayerSwiss;
+import com.example.swisstournament2.Model.PlayerSwissDTO;
 import com.example.swisstournament2.Model.PlayerTournois;
 import com.example.swisstournament2.Model.Tournois;
 import com.example.swisstournament2.R;
 import com.example.swisstournament2.Retrofit.Apis.PlayerApi;
+import com.example.swisstournament2.Retrofit.Apis.PlayerTournoisApi;
 import com.example.swisstournament2.Retrofit.RetrofitService;
 import com.example.swisstournament2.Retrofit.Apis.TournoisApi;
+import com.example.swisstournament2.adapter.ActionJoueurTournois;
 import com.example.swisstournament2.adapter.PlayerAdapter;
 
 import java.util.ArrayList;
@@ -43,6 +46,7 @@ public class CreerNouveauxTournois extends AppCompatActivity {
     private PlayerApi playerApi = retrofit.create(PlayerApi.class);
     private Tournois nvxTournois = new Tournois();
     private PlayerSwiss playerHandler;
+    private PlayerTournoisApi playerTournoisApi = retrofit.create(PlayerTournoisApi.class);
     private int idTournois;
 
     @Override
@@ -204,9 +208,9 @@ public class CreerNouveauxTournois extends AppCompatActivity {
 
     private void loadJoueur() {
         tournoisApi.getPlayerTournois(nvxTournois.getId())
-                .enqueue(new Callback<TreeSet<PlayerSwiss>>() {
+                .enqueue(new Callback<TreeSet<PlayerSwissDTO>>() {
                     @Override
-                    public void onResponse(Call<TreeSet<PlayerSwiss>> call, Response<TreeSet<PlayerSwiss>> response) {
+                    public void onResponse(Call<TreeSet<PlayerSwissDTO>> call, Response<TreeSet<PlayerSwissDTO>> response) {
                         if (response.isSuccessful() && response.body() != null) {
                             remplirListJoueurTournois(response.body());
                         } else {
@@ -221,15 +225,41 @@ public class CreerNouveauxTournois extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<TreeSet<PlayerSwiss>> call, Throwable t) {
+                    public void onFailure(Call<TreeSet<PlayerSwissDTO>> call, Throwable t) {
                         Toast.makeText(CreerNouveauxTournois.this, "Failed to load Player", Toast.LENGTH_SHORT).show();
                         Logger.getLogger(CreerNouveauxTournois.class.getName()).log(Level.WARNING, "error chargement player :", t);
                     }
                 });
     }
 
-    private void remplirListJoueurTournois(TreeSet<PlayerSwiss> body) {
-        PlayerAdapter playerAdapter = new PlayerAdapter(body);
+    private void remplirListJoueurTournois(TreeSet<PlayerSwissDTO> body) {
+        PlayerAdapter playerAdapter = new PlayerAdapter(body, new ActionJoueurTournois() {
+            @Override
+            public void modifierJoueurT(PlayerSwissDTO player) {
+
+
+            }
+
+            @Override
+            public void supprimerPlayerT(PlayerSwissDTO player) {
+                Log.i("BTN SUPP CLICK","je commence la suppression");
+                playerTournoisApi.supprimerParticipant(player.getId())
+                        .enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                loadJoueur();
+                                Log.i("SupprimerCLIcl","supprimer participant, fait");
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                t.printStackTrace();
+                                log.warning("probleme click supprimer"+t.getMessage());
+                            }
+                        });
+                Log.i("BTN SUPP CLICK","je prepare le loading");
+            }
+        });
         recycleView.setAdapter(playerAdapter);
     }
 }

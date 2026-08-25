@@ -10,21 +10,35 @@
         android:id="@+id/PlayerTournoisName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="PlayerName">
+        app:layout_constraintBottom_toBottomOf="@+id/modifierPlayerT"
+        android:text="@string/playername">
     </TextView>
 
-    <TextView
-        android:id="@+id/PlayerTournoisRating"
+    <ImageButton
+        android:id="@+id/supprimerPlayerT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="Rating">
-    </TextView>
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/delete_participant"
+        app:tint="@color/supprimer"
+        android:contentDescription="@string/supprimer">
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/modifierPlayerT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/modifier_participant"
+        android:src="@drawable/modifier_logo"
+        app:layout_constraintEnd_toStartOf="@+id/supprimerPlayerT"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/gray_edit"></ImageButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

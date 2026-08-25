@@ -1,17 +1,23 @@
 package com.example.swisstournament2.adapter;
 
+import static android.view.View.VISIBLE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.swisstournament2.Activity.ManchesTournois;
 import com.example.swisstournament2.Activity.MatchEncourMancheX;
+import com.example.swisstournament2.Model.Enums.MancheStatus;
 import com.example.swisstournament2.Model.MancheSwiss;
 import com.example.swisstournament2.R;
 import com.example.swisstournament2.Retrofit.Apis.TournoisApi;
@@ -24,9 +30,11 @@ import retrofit2.Retrofit;
 
 public class MancheAdapter extends RecyclerView.Adapter<MancheHolder> {
     private final ArrayList<MancheSwiss> mancheTournois;
+    private final MancheClickSurEcoute ecoute;
 
-    public MancheAdapter(ArrayList<MancheSwiss> mancheTournois) {
+    public MancheAdapter(ArrayList<MancheSwiss> mancheTournois, MancheClickSurEcoute ecoute) {
         this.mancheTournois = mancheTournois;
+        this.ecoute = ecoute;
     }
 
     @NonNull
@@ -47,20 +55,16 @@ public class MancheAdapter extends RecyclerView.Adapter<MancheHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mancheSwiss.getStatus()==1 || mancheSwiss.getStatus()==2){
-                    Context context = v.getContext();
-                    Intent intent= new Intent(context, MatchEncourMancheX.class);
-                    intent.putExtra("numMancheUnique",mancheSwiss.getNum_manche());
-                    intent.putExtra("numManche",mancheIntNum);
-                    context.startActivity(intent);
+                Context context = v.getContext();
+                if(mancheSwiss.getStatus()== MancheStatus.ENCOURS.getTyni() || mancheSwiss.getStatus()==MancheStatus.FINI.getTyni()){
+                    ecoute.MancheOk(mancheSwiss);
                 }
-                else{
-                    Log.d("manche click error","manche n'ayant pas le statut en cours ou fini");
+                else if(mancheSwiss.getStatus()==MancheStatus.ENATTENT.getTyni()){
+                    ecoute.MancheNonDemarrer();
                 }
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return mancheTournois.size();

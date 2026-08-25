@@ -20,6 +20,11 @@
     <string name="retour_manches">retour Manches</string>
     <string name="_1_x">1/x</string>
     <string name="manchename">MancheName</string>
+    <string name="la_manche_precedente_n_est_pas_terminer">la manche precedente n\'est pas terminer</string>
+    <string name="supprimer">Supprimer</string>
+    <string name="modifier">modifier</string>
+    <string name="playername">PlayerName</string>
+    <string name="modifier_participant">modifier_participant</string>
     <string-array name="spinner_tournois_cadence">
         <item></item>
         <item>3 | 2</item>

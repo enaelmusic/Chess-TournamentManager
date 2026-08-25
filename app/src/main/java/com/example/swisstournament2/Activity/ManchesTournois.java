@@ -1,12 +1,16 @@
 package com.example.swisstournament2.Activity;
 
+import static android.view.View.VISIBLE;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +21,7 @@ import com.example.swisstournament2.R;
 import com.example.swisstournament2.Retrofit.Apis.TournoisApi;
 import com.example.swisstournament2.Retrofit.RetrofitService;
 import com.example.swisstournament2.adapter.MancheAdapter;
+import com.example.swisstournament2.adapter.MancheClickSurEcoute;
 
 import java.util.ArrayList;
 
@@ -56,7 +61,6 @@ public class ManchesTournois extends Activity {
 
                     }
                 });
-
     }
 
     private void initializeView() {
@@ -69,16 +73,30 @@ public class ManchesTournois extends Activity {
                 startActivity(intent);
             }
         });
-
     }
-
-
     private void initRecycleView() {
         recyclerView = findViewById(R.id.MancheTournoisList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
     private void loadManche(ArrayList<MancheSwiss> mancheSwisses){
-        mancheAdapter = new MancheAdapter(mancheSwisses);
+        mancheAdapter = new MancheAdapter(mancheSwisses, new MancheClickSurEcoute() {
+            @Override
+            public void MancheOk(MancheSwiss m) {
+                Intent intent= new Intent(ManchesTournois.this,MatchEncourMancheX.class);
+                intent.putExtra("numMancheUnique",m.getNum_manche());
+                intent.putExtra("numManche",m.getInt_manche());
+                intent.putExtra("mancheStatus",m.getStatus()+"");
+                startActivity(intent);
+            }
+
+            @Override
+            public void MancheNonDemarrer() {
+                TextView tv = findViewById(R.id.errueurManche);
+                tv.setVisibility(VISIBLE);
+                Log.d("manche click error","manche n'ayant pas le statut en cours ou fini");
+
+            }
+        });
         recyclerView.setAdapter(mancheAdapter);
     }
 }

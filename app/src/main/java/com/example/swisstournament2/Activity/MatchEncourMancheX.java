@@ -1,5 +1,8 @@
 package com.example.swisstournament2.Activity;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.swisstournament2.Model.Enums.MancheStatus;
 import com.example.swisstournament2.Model.MatchSwiss;
 import com.example.swisstournament2.R;
 import com.example.swisstournament2.Retrofit.Apis.ManchesApi;
@@ -36,6 +40,7 @@ public class MatchEncourMancheX extends AppCompatActivity {
     private MatchSwissAdapter matchAdapter;
     private TournoisApi tournoisApi = retrofit.create(TournoisApi.class);
     private ArrayList<MatchSwiss> matchSwisses;
+    private String mancheStatus;
     private String idTournois, numMancheInt, mancheMaxInt;
     ArrayList<MatchSwiss> matchArray ;
     @NonNull
@@ -53,6 +58,7 @@ public class MatchEncourMancheX extends AppCompatActivity {
             idTournois = getIntent().getExtras().getInt("IDTOURNOIS")+"";
             numMancheInt = getIntent().getExtras().getString("numManche");
             mancheMaxInt = getIntent().getExtras().getString("mancheMax");
+            mancheStatus = MancheStatus.ENCOURS+"";
             Log.d("Match pour MATCH ->",matchSwisses.get(0).getNom_black());
             loadMatches(matchSwisses);
             initialiserVue();
@@ -66,7 +72,8 @@ public class MatchEncourMancheX extends AppCompatActivity {
                                 idTournois   = response.headers().get("IDTOURNOIS");
                                 numMancheInt = response.headers().get("numManche");
                                 mancheMaxInt = response.headers().get("mancheMax");
-                                Log.d("info GetMancheByNumManche -> ","idTournois : "+idTournois+"num: " + numMancheInt+"Max:"+mancheMaxInt);
+                                mancheStatus = getIntent().getExtras().getString("mancheStatus");
+                                Log.d("info GetMancheByNumManche -> ","idTournois : "+idTournois+"num: " + numMancheInt+"Max:"+mancheMaxInt+"status de manche :"+ mancheStatus);
                                 loadMatchesSet(response.body());
                                 initialiserVue();
                             }
@@ -96,7 +103,15 @@ public class MatchEncourMancheX extends AppCompatActivity {
         TextView numManche = findViewById(R.id.numManche);
         String textSetter = numMancheInt+"/"+mancheMaxInt;
         numManche.setText(textSetter);
-        Log.d("info initialView -> ","idTournois : "+idTournois+"num: " + numMancheInt+"Max:"+mancheMaxInt);
+        Log.d("info initialView -> ","idTournois : "+idTournois+"num: " + numMancheInt+"Max:"+mancheMaxInt+" :: manche statu ->"+ mancheStatus);
+
+        if(getIntent().hasExtra("mancheStatus")&& mancheStatus.equals(MancheStatus.FINI.getTyni()+"")){
+            nextManche.setVisibility(INVISIBLE);
+        }
+        else{
+            nextManche.setVisibility(VISIBLE);
+        }
+
         nextManche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
