@@ -25,6 +25,13 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> {
         this.actionParticipant = actionParticipant;
     }
 
+    public void setItem(TreeSet<PlayerSwissDTO> mapPlayer){
+        this.mapPlayer.clear();
+        this.mapPlayer.addAll(mapPlayer);
+        notifyDataSetChanged();
+    }
+
+
     @NonNull
     @Override
     public PlayerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

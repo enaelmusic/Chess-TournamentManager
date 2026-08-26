@@ -48,7 +48,9 @@ public class CreerNouveauxTournois extends AppCompatActivity {
     private PlayerSwiss playerHandler;
     private PlayerTournoisApi playerTournoisApi = retrofit.create(PlayerTournoisApi.class);
     private int idTournois;
-
+    private Button startTournois ;
+    private Button ajouterJoueur ;
+    private PlayerAdapter playerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,9 +65,16 @@ public class CreerNouveauxTournois extends AppCompatActivity {
                 .enqueue(new Callback<Tournois>() {
                     @Override
                     public void onResponse(Call<Tournois> call, Response<Tournois> response) {
-                        Toast.makeText(CreerNouveauxTournois.this, "Tournois Creer", Toast.LENGTH_SHORT).show();
-                        nvxTournois = response.body();
-                        idTournois = nvxTournois.getId();
+                        if(response.isSuccessful() & response.body() !=null){
+                            Toast.makeText(CreerNouveauxTournois.this, "Tournois Creer", Toast.LENGTH_SHORT).show();
+                            nvxTournois = response.body();
+                            idTournois = nvxTournois.getId();
+                            if(ajouterJoueur != null){ajouterJoueur.setEnabled(true);}
+                            if(startTournois != null){startTournois.setEnabled(true);}
+                        }
+                        else{
+                            Log.e("creerTournoisError","response = "+response.code());
+                        }
                     }
 
                     @Override
@@ -79,10 +88,12 @@ public class CreerNouveauxTournois extends AppCompatActivity {
     private void initialiseNouveauxTournois() {
         EditText name = findViewById(R.id.nomTournoisInput);
         Spinner cadenceSpinner = findViewById(R.id.cadenceInput);
-        Button startTournois = findViewById(R.id.startTournoisBtn);
         EditText nbrManche = findViewById(R.id.inputNbrManche);
         EditText playerName = findViewById(R.id.label4);
-        Button ajouterJoueur = findViewById(R.id.addPlayerBtn);
+        startTournois = findViewById(R.id.startTournoisBtn);
+        ajouterJoueur = findViewById(R.id.addPlayerBtn);
+        startTournois.setEnabled(false);
+        ajouterJoueur.setEnabled(false);
         recycleView = findViewById(R.id.PlayerList);
 
         String[] cadences = getResources().getStringArray(R.array.spinner_tournois_cadence);
@@ -116,10 +127,32 @@ public class CreerNouveauxTournois extends AppCompatActivity {
             public void onClick(View view) {
                 String cadenceString = cadenceSpinner.getSelectedItem().toString();
                 String nameString = name.getText().toString();
+                String nbrMancheMaxString = nbrManche.getText().toString();
+                if(nameString.isEmpty()){
+                    Toast.makeText(CreerNouveauxTournois.this, "Saisir un nom de tournois", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(cadenceString.isEmpty()){
+                    Toast.makeText(CreerNouveauxTournois.this, "Saisir une cadence", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(nbrMancheMaxString.isEmpty()){
+                    Toast.makeText(CreerNouveauxTournois.this, "Le nombre de manche doit etre entre 2 et 20", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                int nbrMancheMaxInt = Integer.parseInt(nbrMancheMaxString);
+                if(nbrMancheMaxInt<2 || nbrMancheMaxInt>20){
+                    Toast.makeText(CreerNouveauxTournois.this, "Le nombre de manche doit etre entre 2 et 20", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(playerAdapter==null || playerAdapter.getItemCount()<3){
+                    Toast.makeText(CreerNouveauxTournois.this, "Saisir au moins 3 participants", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 nvxTournois.setName(nameString);
                 nvxTournois.setCadence(cadenceString);
                 nvxTournois.setStatusTournois(1);
-                nvxTournois.setNbr_manche(Integer.parseInt(nbrManche.getText().toString()));
+                nvxTournois.setNbr_manche(nbrMancheMaxInt);
                 tournoisApi.postTournois(nvxTournois)
                         .enqueue(new Callback<Tournois>() {
                             @Override
@@ -233,33 +266,38 @@ public class CreerNouveauxTournois extends AppCompatActivity {
     }
 
     private void remplirListJoueurTournois(TreeSet<PlayerSwissDTO> body) {
-        PlayerAdapter playerAdapter = new PlayerAdapter(body, new ActionJoueurTournois() {
-            @Override
-            public void modifierJoueurT(PlayerSwissDTO player) {
+        if(playerAdapter==null){
+            playerAdapter = new PlayerAdapter(body, new ActionJoueurTournois() {
+                @Override
+                public void modifierJoueurT(PlayerSwissDTO player) {
 
 
-            }
+                }
 
-            @Override
-            public void supprimerPlayerT(PlayerSwissDTO player) {
-                Log.i("BTN SUPP CLICK","je commence la suppression");
-                playerTournoisApi.supprimerParticipant(player.getId())
-                        .enqueue(new Callback<Void>() {
-                            @Override
-                            public void onResponse(Call<Void> call, Response<Void> response) {
-                                loadJoueur();
-                                Log.i("SupprimerCLIcl","supprimer participant, fait");
-                            }
+                @Override
+                public void supprimerPlayerT(PlayerSwissDTO player) {
+                    Log.i("BTN SUPP CLICK","je commence la suppression");
+                    playerTournoisApi.supprimerParticipant(player.getId())
+                            .enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                    loadJoueur();
+                                    Log.i("SupprimerCLIcl","supprimer participant, fait");
+                                }
 
-                            @Override
-                            public void onFailure(Call<Void> call, Throwable t) {
-                                t.printStackTrace();
-                                log.warning("probleme click supprimer"+t.getMessage());
-                            }
-                        });
-                Log.i("BTN SUPP CLICK","je prepare le loading");
-            }
-        });
-        recycleView.setAdapter(playerAdapter);
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+                                    t.printStackTrace();
+                                    log.warning("probleme click supprimer"+t.getMessage());
+                                }
+                            });
+                    Log.i("BTN SUPP CLICK","je prepare le loading");
+                }
+            });
+            recycleView.setAdapter(playerAdapter);
+
+        }else{
+            playerAdapter.setItem(body);
+        }
     }
 }
