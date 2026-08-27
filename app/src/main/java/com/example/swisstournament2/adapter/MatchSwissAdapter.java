@@ -18,13 +18,16 @@ import java.util.TreeSet;
 
 public class MatchSwissAdapter extends RecyclerView.Adapter<MatchSwissHolder> {
     private final ArrayList<MatchSwiss> matchSet;
-    public MatchSwissAdapter(ArrayList<MatchSwiss> matchSet) {
+    private final StatusMatchChanger statusListenner;
+    public MatchSwissAdapter(ArrayList<MatchSwiss> matchSet, StatusMatchChanger statusListenner) {
         Log.d("on construi le match adapter ->",matchSet.get(0).getNom_black());
         this.matchSet= matchSet;
+        this.statusListenner = statusListenner;
     }
-    public MatchSwissAdapter(TreeSet<MatchSwiss> matchSet) {
+    public MatchSwissAdapter(TreeSet<MatchSwiss> matchSet, StatusMatchChanger statusListenner) {
         Log.d("on construi le match adapter ->",matchSet.toString());
         this.matchSet= new ArrayList<MatchSwiss>(matchSet);
+        this.statusListenner = statusListenner;
     }
     @NonNull
     @Override
@@ -39,18 +42,27 @@ public class MatchSwissAdapter extends RecyclerView.Adapter<MatchSwissHolder> {
         holder.getPlayerW().setText(m.getNom_white());
         holder.getPlayerB().setText(m.getNom_black());
         holder.setNumMatch(m.getNum_match());
-
         holder.getMatchGroupBtn().setOnCheckedChangeListener(null);
+
+        setActiveBtn(holder,true);
+        holder.getPlayerW().setSelected(false);
+        holder.getPlayerB().setSelected(false);
+        holder.getNullBtn().setSelected(false);
+        holder.getMatchGroupBtn().clearCheck();
+
         if(m.getStatus()== MatchStatus.WHITE.getTyni()){
+            holder.getMatchGroupBtn().check(R.id.PlayerWhiteWin);
             holder.getPlayerW().setSelected(true);
         }
         else if(m.getStatus()== MatchStatus.BLACK.getTyni()){
+            holder.getMatchGroupBtn().check(R.id.PlayerBlackWin);
             holder.getPlayerB().setSelected(true);
         }
         else if(m.getStatus()== MatchStatus.DRAW.getTyni()){
+            holder.getMatchGroupBtn().check(R.id.drawResult);
             holder.getNullBtn().setSelected(true);
         }
-        else if(m.getStatus()==MatchStatus.DRAW.getTyni()){
+        else if(m.getStatus()==MatchStatus.BYE.getTyni()){
             setActiveBtn(holder,false);
         }
         else{
@@ -60,18 +72,24 @@ public class MatchSwissAdapter extends RecyclerView.Adapter<MatchSwissHolder> {
         holder.getMatchGroupBtn().setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(@NonNull RadioGroup group, int checkedId) {
+                int nouveauxStatus = MatchStatus.ENATTENT.getTyni() ;
                 if(checkedId==R.id.PlayerWhiteWin){
                     Log.i("RadioButton -> ","Blanc gagne selectionner");
-                    m.setStatus(MatchStatus.WHITE.getTyni());
+                    nouveauxStatus = MatchStatus.WHITE.getTyni();
                 }
                 else if(checkedId==R.id.PlayerBlackWin){
                     Log.i("RadioButton -> ","Black gagne selectionner");
-                    m.setStatus(MatchStatus.BLACK.getTyni());
+                    nouveauxStatus = MatchStatus.BLACK.getTyni();
                 }
                 else if(checkedId==R.id.drawResult){
                     Log.i("RadioButton -> ","Null selectionner");
-                    m.setStatus(MatchStatus.DRAW.getTyni());
+                    nouveauxStatus = MatchStatus.DRAW.getTyni();
                 }
+                m.setStatus(nouveauxStatus);
+                if(statusListenner !=null){
+                    statusListenner.statusMatchChanger(m,nouveauxStatus);
+                }
+
             }
         });
     }

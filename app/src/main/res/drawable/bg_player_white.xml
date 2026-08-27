@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-  
+    <item android:state_enabled="false">
+        <shape><solid android:color="#F9F2F9"/> </shape>
+    </item>
+    <item android:state_checked="true">
+        <shape>
+            <solid android:color="#EEB5AE"/>
+            <stroke android:width="3dp" android:color="#C9E6E5"/>
+        </shape>
+    </item>
+    <item>
+        <shape><solid android:color="#EDE9E9"/></shape>
+    </item>
 </selector>

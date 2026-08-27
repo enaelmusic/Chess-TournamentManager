@@ -18,12 +18,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.swisstournament2.Model.Enums.MancheStatus;
+import com.example.swisstournament2.Model.Enums.MatchStatus;
 import com.example.swisstournament2.Model.MatchSwiss;
 import com.example.swisstournament2.R;
 import com.example.swisstournament2.Retrofit.Apis.ManchesApi;
 import com.example.swisstournament2.Retrofit.Apis.TournoisApi;
 import com.example.swisstournament2.Retrofit.RetrofitService;
 import com.example.swisstournament2.adapter.MatchSwissAdapter;
+import com.example.swisstournament2.adapter.StatusMatchChanger;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
@@ -33,7 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class MatchEncourMancheX extends AppCompatActivity {
+public class MatchEncourMancheX extends AppCompatActivity implements StatusMatchChanger {
     private RecyclerView recyclerView;
     private Retrofit retrofit =  RetrofitService.getRetrofit();
     private ManchesApi manchesApi= retrofit.create(ManchesApi.class);
@@ -42,7 +44,8 @@ public class MatchEncourMancheX extends AppCompatActivity {
     private ArrayList<MatchSwiss> matchSwisses;
     private String mancheStatus;
     private String idTournois, numMancheInt, mancheMaxInt;
-    ArrayList<MatchSwiss> matchArray ;
+    private Button nextManche;
+
     @NonNull
     @Override
     public OnBackInvokedDispatcher getOnBackInvokedDispatcher() {
@@ -68,7 +71,7 @@ public class MatchEncourMancheX extends AppCompatActivity {
                     enqueue(new Callback<TreeSet<MatchSwiss>>() {
                         @Override
                         public void onResponse(Call<TreeSet<MatchSwiss>> call, Response<TreeSet<MatchSwiss>> response) {
-                            if(response.body() != null){
+                            if(response.isSuccessful() && response.body() != null){
                                 idTournois   = response.headers().get("IDTOURNOIS");
                                 numMancheInt = response.headers().get("numManche");
                                 mancheMaxInt = response.headers().get("mancheMax");
@@ -99,8 +102,9 @@ public class MatchEncourMancheX extends AppCompatActivity {
         });
     }
     private void initialiserVue() {
-        Button nextManche = findViewById(R.id.NextRoundBTN);
+        nextManche = findViewById(R.id.NextRoundBTN);
         TextView numManche = findViewById(R.id.numManche);
+
         String textSetter = numMancheInt+"/"+mancheMaxInt;
         numManche.setText(textSetter);
         Log.d("info initialView -> ","idTournois : "+idTournois+"num: " + numMancheInt+"Max:"+mancheMaxInt+" :: manche statu ->"+ mancheStatus);
@@ -115,6 +119,7 @@ public class MatchEncourMancheX extends AppCompatActivity {
         nextManche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                nextManche.setEnabled(false);
                 manchesApi.nextManche(new TreeSet<MatchSwiss>(matchAdapter.getUpdatedMatches()))
                         .enqueue(new Callback<TreeSet<MatchSwiss>>() {
                             @Override
@@ -125,35 +130,59 @@ public class MatchEncourMancheX extends AppCompatActivity {
                                         Intent intent2 = new Intent(MatchEncourMancheX.this, ClassementActivity.class);
                                         intent2.putExtra("IDTOURNOIS",idTournois);
                                         startActivity(intent2);
+                                        finish();
                                     }
                                     else {
                                         loadMatches(new ArrayList<MatchSwiss>(response.body()));
                                         numMancheInt =response.headers().get("numManche");
                                         mancheMaxInt = response.headers().get("mancheMax");
                                         numManche.setText(numMancheInt+"/"+mancheMaxInt);
+                                        btnNextMancheState();
                                     }
+                                }
+                                else{
+                                    btnNextMancheState();
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<TreeSet<MatchSwiss>> call, Throwable t) {
                                 Log.e("erreur clickNextMance ->",t.toString());
+                                btnNextMancheState();
 
                             }
                         });
             }
         });
+
+        btnNextMancheState();
     }
     private void initRecycleView() {
         recyclerView = findViewById(R.id.matchList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
     private void loadMatches(ArrayList<MatchSwiss> matchSet) {
-        matchAdapter = new MatchSwissAdapter(matchSet);
+        matchAdapter = new MatchSwissAdapter(matchSet, this);
         recyclerView.setAdapter(matchAdapter);
     }
     private void loadMatchesSet(TreeSet<MatchSwiss> matchSet) {
-        matchAdapter = new MatchSwissAdapter(matchSet);
+        matchAdapter = new MatchSwissAdapter(matchSet, this);
         recyclerView.setAdapter(matchAdapter);
+    }
+    public void btnNextMancheState(){
+        boolean tousChecked = true;
+        for(MatchSwiss m : matchAdapter.getUpdatedMatches()){
+            if(m.getStatus()== MatchStatus.ENATTENT.getTyni()){
+                tousChecked=false;
+                break; // force le false a la condition
+            }
+        }
+        nextManche.setEnabled(tousChecked);
+    }
+
+    @Override
+    public void statusMatchChanger(MatchSwiss match, int nouveauxStatus) {
+        Log.d("MatchStatus","Le match status a change int = "+match.getStatus());
+        btnNextMancheState();
     }
 }
