@@ -25,6 +25,7 @@
     <string name="modifier">modifier</string>
     <string name="playername">PlayerName</string>
     <string name="modifier_participant">modifier_participant</string>
+    <string name="valider_modif_name">valider modif name</string>
     <string-array name="spinner_tournois_cadence">
         <item></item>
         <item>3 | 2</item>

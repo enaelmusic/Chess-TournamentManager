@@ -1,8 +1,12 @@
 package com.example.swisstournament2.adapter;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,6 +53,24 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> {
             @Override
             public void onClick(View v) {
                 actionParticipant.modifierJoueurT(player);
+                holder.getSupprimerJoueur().setVisibility(INVISIBLE);
+                holder.getModifierJoueur().setVisibility(INVISIBLE);
+                holder.getValiderModifName().setVisibility(VISIBLE);
+                holder.getNamePlayer().setVisibility(INVISIBLE);
+                holder.getNamePlayerModifier().setVisibility(VISIBLE);
+                holder.getNamePlayerModifier().requestFocus();
+            }
+        });
+        holder.getValiderModifName().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.getSupprimerJoueur().setVisibility(VISIBLE);
+                holder.getModifierJoueur().setVisibility(VISIBLE);
+                holder.getValiderModifName().setVisibility(INVISIBLE);
+                holder.getNamePlayer().setVisibility(VISIBLE);
+                holder.getNamePlayerModifier().setVisibility(INVISIBLE);
+                player.setNom(holder.getNamePlayerModifier().getText().toString());
+                actionParticipant.validerModifPlayerT(player);
             }
         });
         holder.getSupprimerJoueur().setOnClickListener(new View.OnClickListener() {

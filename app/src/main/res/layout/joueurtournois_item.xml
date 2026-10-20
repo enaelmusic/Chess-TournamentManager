@@ -15,8 +15,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/modifierPlayerT"
-        android:text="@string/playername">
+        android:text="@string/playername"
+        android:visibility="visible">
     </TextView>
+
+    <EditText
+        android:id="@+id/PlayerEditName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/modifierPlayerT"
+        android:hint="@string/playername"
+        android:inputType="text"
+        android:visibility="invisible">
+
+    </EditText>
 
     <ImageButton
         android:id="@+id/supprimerPlayerT"
@@ -27,7 +43,19 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/delete_participant"
         app:tint="@color/supprimer"
-        android:contentDescription="@string/supprimer">
+        android:contentDescription="@string/supprimer"
+        android:visibility="visible">
+    </ImageButton>
+    <ImageButton
+        android:id="@+id/validerModif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/validation_update"
+        android:contentDescription="@string/valider_modif_name"
+        android:visibility="invisible">
     </ImageButton>
 
     <ImageButton
@@ -39,6 +67,8 @@
         android:src="@drawable/modifier_logo"
         app:layout_constraintEnd_toStartOf="@+id/supprimerPlayerT"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/gray_edit"></ImageButton>
+        app:tint="@color/gray_edit">
+
+    </ImageButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

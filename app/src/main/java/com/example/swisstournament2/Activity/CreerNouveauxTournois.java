@@ -1,5 +1,8 @@
 package com.example.swisstournament2.Activity;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -50,6 +54,7 @@ public class CreerNouveauxTournois extends AppCompatActivity {
     private int idTournois;
     private Button startTournois ;
     private Button ajouterJoueur ;
+    private EditText playerName ;
     private PlayerAdapter playerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +91,10 @@ public class CreerNouveauxTournois extends AppCompatActivity {
     }
 
     private void initialiseNouveauxTournois() {
-        EditText name = findViewById(R.id.nomTournoisInput);
+        EditText nameTournois = findViewById(R.id.nomTournoisInput);
         Spinner cadenceSpinner = findViewById(R.id.cadenceInput);
         EditText nbrManche = findViewById(R.id.inputNbrManche);
-        EditText playerName = findViewById(R.id.label4);
+        playerName = findViewById(R.id.label4);
         startTournois = findViewById(R.id.startTournoisBtn);
         ajouterJoueur = findViewById(R.id.addPlayerBtn);
         startTournois.setEnabled(false);
@@ -112,6 +117,7 @@ public class CreerNouveauxTournois extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<PlayerSwiss> call, Response<PlayerSwiss> response) {
                                 responseSavePlayer(response);
+                                playerName.setText("");
                             }
 
                             @Override
@@ -126,7 +132,7 @@ public class CreerNouveauxTournois extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String cadenceString = cadenceSpinner.getSelectedItem().toString();
-                String nameString = name.getText().toString();
+                String nameString = nameTournois.getText().toString();
                 String nbrMancheMaxString = nbrManche.getText().toString();
                 if(nameString.isEmpty()){
                     Toast.makeText(CreerNouveauxTournois.this, "Saisir un nom de tournois", Toast.LENGTH_SHORT).show();
@@ -264,6 +270,18 @@ public class CreerNouveauxTournois extends AppCompatActivity {
                     }
                 });
     }
+    public void modifJoueurClick(PlayerSwissDTO player){
+        TextView nameList = findViewById(R.id.PlayerTournoisName);
+        EditText nameToUpdate = findViewById(R.id.PlayerEditName);
+        nameList.setVisibility(INVISIBLE);
+        nameToUpdate.setVisibility(VISIBLE);
+        nameToUpdate.setText(nameList.getText());
+        nameToUpdate.requestFocus();
+//        if(!nameToUpdate.hasFocus()){
+//            nameList.setVisibility(VISIBLE);
+//            nameToUpdate.setVisibility(INVISIBLE);
+//        }
+    }
 
     private void remplirListJoueurTournois(TreeSet<PlayerSwissDTO> body) {
         if(playerAdapter==null){
@@ -271,7 +289,38 @@ public class CreerNouveauxTournois extends AppCompatActivity {
                 @Override
                 public void modifierJoueurT(PlayerSwissDTO player) {
 
+                    Log.i("BTN MODIFER", "Je commence la modifiaction");
 
+                }
+                @Override
+                public void validerModifPlayerT(PlayerSwissDTO player){
+                    Log.i("PlayerUpdatedName", "name: " + player.getNom());
+                    playerTournoisApi.modifierParticipant( player)
+                            .enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                    if(response.isSuccessful()) {
+                                        Log.i("modifDone", "code: " + response.code());
+                                        loadJoueur();
+                                        playerName.requestFocus();
+                                    }
+                                    else{
+                                        Log.e("modifError", "code: " + response.code());
+                                        try {
+                                            Log.e("modifErroString", "code: " + response.errorBody().string());
+                                        }
+                                        catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+
+
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+
+                                }
+                            });
                 }
 
                 @Override

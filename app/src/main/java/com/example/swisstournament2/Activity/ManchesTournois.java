@@ -65,6 +65,15 @@ public class ManchesTournois extends Activity {
 
     private void initializeView() {
         Button homebtn = findViewById(R.id.HomeButton);
+        Button participantsListButton = findViewById(R.id.participantsList);
+        participantsListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ManchesTournois.this, ParticipantsActivity.class);
+                intent.putExtra("IDTOURNOIS",idTournois);
+                startActivity(intent);
+            }
+        });
         homebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

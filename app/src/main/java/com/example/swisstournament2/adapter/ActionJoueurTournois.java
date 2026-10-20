@@ -6,4 +6,6 @@ import com.example.swisstournament2.Model.PlayerSwissDTO;
 public interface ActionJoueurTournois {
     void modifierJoueurT(PlayerSwissDTO player);
     void supprimerPlayerT(PlayerSwissDTO player);
+
+    void validerModifPlayerT(PlayerSwissDTO player);
 }

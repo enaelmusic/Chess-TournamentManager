@@ -16,14 +16,6 @@
         android:orientation="horizontal"
         android:padding="16dp"
         android:gravity="center_vertical">
-        <Button
-            android:id="@+id/retourMancheBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/retour_manches">
-
-        </Button>
         <TextView
             android:id="@+id/mancheName"
             android:layout_width="0dp"
