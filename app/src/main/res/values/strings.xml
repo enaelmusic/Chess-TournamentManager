@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">SwissTournament2</string>
 
-
+    <string name="ok">Confirmer</string>
+    <string name="confirmationOut">Ce joueur sera definivement exclu du tournois, vous confirmez sa sortie?</string>
     <string name="cadence">Cadence</string>
     <string name="freestyle_tournament">FreeStyle Tournament</string>
     <string name="nom_tournois">Nom Tournois</string>
@@ -26,6 +27,7 @@
     <string name="playername">PlayerName</string>
     <string name="modifier_participant">modifier_participant</string>
     <string name="valider_modif_name">valider modif name</string>
+    <string name="joueur_out">joueur out</string>
     <string-array name="spinner_tournois_cadence">
         <item></item>
         <item>3 | 2</item>

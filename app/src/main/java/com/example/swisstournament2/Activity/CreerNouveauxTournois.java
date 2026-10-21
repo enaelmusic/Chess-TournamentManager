@@ -30,6 +30,7 @@ import com.example.swisstournament2.Retrofit.Apis.PlayerTournoisApi;
 import com.example.swisstournament2.Retrofit.RetrofitService;
 import com.example.swisstournament2.Retrofit.Apis.TournoisApi;
 import com.example.swisstournament2.adapter.ActionJoueurTournois;
+import com.example.swisstournament2.adapter.ModeView;
 import com.example.swisstournament2.adapter.PlayerAdapter;
 
 import java.util.ArrayList;
@@ -259,7 +260,6 @@ public class CreerNouveauxTournois extends AppCompatActivity {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-
                         }
                     }
 
@@ -270,27 +270,12 @@ public class CreerNouveauxTournois extends AppCompatActivity {
                     }
                 });
     }
-    public void modifJoueurClick(PlayerSwissDTO player){
-        TextView nameList = findViewById(R.id.PlayerTournoisName);
-        EditText nameToUpdate = findViewById(R.id.PlayerEditName);
-        nameList.setVisibility(INVISIBLE);
-        nameToUpdate.setVisibility(VISIBLE);
-        nameToUpdate.setText(nameList.getText());
-        nameToUpdate.requestFocus();
-//        if(!nameToUpdate.hasFocus()){
-//            nameList.setVisibility(VISIBLE);
-//            nameToUpdate.setVisibility(INVISIBLE);
-//        }
-    }
-
     private void remplirListJoueurTournois(TreeSet<PlayerSwissDTO> body) {
         if(playerAdapter==null){
             playerAdapter = new PlayerAdapter(body, new ActionJoueurTournois() {
                 @Override
                 public void modifierJoueurT(PlayerSwissDTO player) {
-
                     Log.i("BTN MODIFER", "Je commence la modifiaction");
-
                 }
                 @Override
                 public void validerModifPlayerT(PlayerSwissDTO player){
@@ -314,15 +299,12 @@ public class CreerNouveauxTournois extends AppCompatActivity {
                                         }
                                     }
                                 }
-
-
                                 @Override
                                 public void onFailure(Call<Void> call, Throwable t) {
 
                                 }
                             });
                 }
-
                 @Override
                 public void supprimerPlayerT(PlayerSwissDTO player) {
                     Log.i("BTN SUPP CLICK","je commence la suppression");
@@ -342,7 +324,12 @@ public class CreerNouveauxTournois extends AppCompatActivity {
                             });
                     Log.i("BTN SUPP CLICK","je prepare le loading");
                 }
-            });
+
+                @Override
+                public void joueurOut(PlayerSwissDTO player) {
+
+                }
+            }, ModeView.INSCRIPTION.getTyni());
             recycleView.setAdapter(playerAdapter);
 
         }else{

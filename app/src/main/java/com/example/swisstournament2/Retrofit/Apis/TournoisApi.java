@@ -35,4 +35,7 @@ public interface TournoisApi {
 
     @GET("/getMatchByManche/{num_manche}")
     Call<TreeSet<MatchSwiss>> getMatchByManche(@Path("num_manche") String num_manche);
+
+    @POST("/joueurOut")
+    Call <Void> postJoueurOut(@Body PlayerTournois playerTournois);
 }

@@ -17,7 +17,7 @@ import com.example.swisstournament2.R;
 public class PlayerHolder extends RecyclerView.ViewHolder {
     private TextView namePlayer ;
     private EditText namePlayerModifier;
-    private ImageButton modifierJoueur, supprimerJoueur, validerModifName;
+    private ImageButton modifierJoueur, supprimerJoueur, validerModifName, joueurExitBtn;
 
     public PlayerHolder(@NonNull View itemView) {
         super(itemView);
@@ -26,6 +26,7 @@ public class PlayerHolder extends RecyclerView.ViewHolder {
         modifierJoueur= itemView.findViewById(R.id.modifierPlayerT);
         supprimerJoueur= itemView.findViewById(R.id.supprimerPlayerT);
         validerModifName= itemView.findViewById(R.id.validerModif);
+        joueurExitBtn= itemView.findViewById(R.id.joueurExitBtn);
     }
 
     public TextView getNamePlayer() {
@@ -34,6 +35,14 @@ public class PlayerHolder extends RecyclerView.ViewHolder {
 
     public void setNamePlayer(TextView namePlayer) {
         this.namePlayer = namePlayer;
+    }
+
+    public ImageButton getJoueurExitBtn() {
+        return joueurExitBtn;
+    }
+
+    public void setJoueurExitBtn(ImageButton joueurExitBtn) {
+        this.joueurExitBtn = joueurExitBtn;
     }
 
     public ImageButton getValiderModifName() {
