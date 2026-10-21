@@ -10,6 +10,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.swisstournament2.Model.Enums.ParticipantEnum;
 import com.example.swisstournament2.Model.PlayerSwissDTO;
 import com.example.swisstournament2.Model.PlayerTournois;
 import com.example.swisstournament2.R;
@@ -94,6 +95,7 @@ public class ParticipantsActivity extends Activity {
 
                 @Override
                 public void joueurOut(PlayerSwissDTO player) {
+                    Log.i("playerDTO","le status de participant est ; "+player.getStatusTournois());
                     new AlertDialog.Builder(ParticipantsActivity.this)
                             .setMessage(getString(R.string.confirmationOut))
                             .setPositiveButton(getString(R.string.ok),(dialog, which) -> {
@@ -104,7 +106,15 @@ public class ParticipantsActivity extends Activity {
                                         .enqueue(new Callback<Void>() {
                                             @Override
                                             public void onResponse(Call<Void> call, Response<Void> response) {
-                                                loadJoueur();
+                                                if(response.isSuccessful()){
+                                                    Log.i("Player OUT","PlayerOut envoyé "+response.code());
+                                                    loadJoueur();
+
+                                                }
+                                                else{
+                                                    Log.i("Player OUT","PlayerOut non envoyé "+response.code());
+
+                                                }
                                             }
 
                                             @Override
@@ -115,9 +125,12 @@ public class ParticipantsActivity extends Activity {
                             })
                             .setNegativeButton("Annuler",null)
                             .show();
+
                 }
             }, ModeView.TOURNOISENCOUR.getTyni());
             recyclerView.setAdapter(playerAdapter);
+
+            Log.i("player ADapter","recycleViewSetAdptater fait");
 
         }else{
             playerAdapter.setItem(body);

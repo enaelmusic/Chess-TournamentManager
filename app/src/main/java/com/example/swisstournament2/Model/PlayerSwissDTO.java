@@ -4,9 +4,20 @@ public class PlayerSwissDTO implements Comparable<PlayerSwissDTO> {
     private int id;
     private String nom;
 
-    public PlayerSwissDTO(int id, String nom) {
+    private int statusTournois;
+
+    public PlayerSwissDTO(int id, String nom, int statusTournois) {
         this.id = id;
         this.nom = nom;
+        this.statusTournois=statusTournois;
+    }
+
+    public int getStatusTournois() {
+        return statusTournois;
+    }
+
+    public void setStatusTournois(int statusTournois) {
+        this.statusTournois = statusTournois;
     }
 
     public int getId() {
