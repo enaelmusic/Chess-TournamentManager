@@ -105,6 +105,14 @@ public class ManchesTournois extends Activity {
                 Log.d("manche click error","manche n'ayant pas le statut en cours ou fini");
 
             }
+            @Override
+            public void MancheAnnule(MancheSwiss m){
+                Intent intent= new Intent(ManchesTournois.this,MatchEncourMancheX.class);
+                intent.putExtra("numMancheUnique",m.getNum_manche());
+                intent.putExtra("numManche",m.getInt_manche());
+                intent.putExtra("mancheStatus",m.getStatus()+"");
+                startActivity(intent);
+            }
         });
         recyclerView.setAdapter(mancheAdapter);
     }

@@ -12,6 +12,10 @@ public class PlayerSwissDTO implements Comparable<PlayerSwissDTO> {
         this.statusTournois=statusTournois;
     }
 
+    public PlayerSwissDTO(String nom) {
+        this.nom = nom;
+    }
+
     public int getStatusTournois() {
         return statusTournois;
     }

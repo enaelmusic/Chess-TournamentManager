@@ -5,4 +5,6 @@ import com.example.swisstournament2.Model.MancheSwiss;
 public interface MancheClickSurEcoute {
     void MancheOk(MancheSwiss m );
     void MancheNonDemarrer();
+
+    void MancheAnnule(MancheSwiss m );
 }

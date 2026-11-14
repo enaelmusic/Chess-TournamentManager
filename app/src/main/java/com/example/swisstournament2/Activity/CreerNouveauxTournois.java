@@ -1,4 +1,7 @@
 package com.example.swisstournament2.Activity;
+/**
+ * CE DOCUMENT N'EST PLUS UTILISE
+ */
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -57,6 +60,7 @@ public class CreerNouveauxTournois extends AppCompatActivity {
     private Button ajouterJoueur ;
     private EditText playerName ;
     private PlayerAdapter playerAdapter;
+    private TreeSet<PlayerSwiss> playerSwisses;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,6 +139,7 @@ public class CreerNouveauxTournois extends AppCompatActivity {
                 String cadenceString = cadenceSpinner.getSelectedItem().toString();
                 String nameString = nameTournois.getText().toString();
                 String nbrMancheMaxString = nbrManche.getText().toString();
+                int nbrMancheMaxInt = Integer.parseInt(nbrMancheMaxString);
                 if(nameString.isEmpty()){
                     Toast.makeText(CreerNouveauxTournois.this, "Saisir un nom de tournois", Toast.LENGTH_SHORT).show();
                     return;
@@ -147,7 +152,6 @@ public class CreerNouveauxTournois extends AppCompatActivity {
                     Toast.makeText(CreerNouveauxTournois.this, "Le nombre de manche doit etre entre 2 et 20", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                int nbrMancheMaxInt = Integer.parseInt(nbrMancheMaxString);
                 if(nbrMancheMaxInt<2 || nbrMancheMaxInt>20){
                     Toast.makeText(CreerNouveauxTournois.this, "Le nombre de manche doit etre entre 2 et 20", Toast.LENGTH_SHORT).show();
                     return;

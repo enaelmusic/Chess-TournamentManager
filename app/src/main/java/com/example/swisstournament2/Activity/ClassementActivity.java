@@ -1,5 +1,7 @@
 package com.example.swisstournament2.Activity;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -75,7 +77,9 @@ public class ClassementActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ClassementActivity.this, MainActivity.class);
+                intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                finish();
             }
         });
     }

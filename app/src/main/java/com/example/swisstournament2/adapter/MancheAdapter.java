@@ -62,6 +62,9 @@ public class MancheAdapter extends RecyclerView.Adapter<MancheHolder> {
                 else if(mancheSwiss.getStatus()==MancheStatus.ENATTENT.getTyni()){
                     ecoute.MancheNonDemarrer();
                 }
+                else if(mancheSwiss.getStatus()==MancheStatus.ANNULE.getTyni()){
+                    ecoute.MancheAnnule(mancheSwiss);
+                }
             }
         });
     }

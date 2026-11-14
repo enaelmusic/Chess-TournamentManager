@@ -34,6 +34,12 @@
             android:parentActivityName=".Activity.MainActivity">
         </activity>
         <activity
+            android:name=".Activity.CreerNouveauxTournois2"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName=".Activity.MainActivity">
+        </activity>
+        <activity
             android:name=".Activity.ManchesTournois"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"

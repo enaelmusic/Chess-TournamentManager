@@ -22,12 +22,11 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         Button creerTournois = findViewById(R.id.creer_nvx_tournois);
-        Retrofit retrofit = RetrofitService.getRetrofit();
-        TournoisApi tournoisApi = retrofit.create(TournoisApi.class);
+        Button tournoisTerminer = findViewById(R.id.tournoisTerminer);
         creerTournois.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentNvxTournois = new Intent(MainActivity.this, CreerNouveauxTournois.class);
+                Intent intentNvxTournois = new Intent(MainActivity.this, CreerNouveauxTournois2.class);
                 startActivity(intentNvxTournois);
             }
         });
